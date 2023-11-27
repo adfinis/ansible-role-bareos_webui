@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Adfinis
+  author: adfinis
   role_name: bareos_webui
   description: Install and configure [Bareos](https://www.bareos.com/) WebUI on your system.
   license: Apache-2.0
