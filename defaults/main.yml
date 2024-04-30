@@ -5,5 +5,20 @@ bareos_webui_configuration:
   - section: session
     option: timeout
     value: 3600
+  - section: "{{ bareos_webui_directors.name }}"
+    option: ca_file
+    value: "{{ bareos_webui_tls_ca_cert }}"
+  - section: "{{ bareos_webui_directors.name }}"
+    option: cert_file
+    value: "{{ bareos_webui_tls_cert_chain }}"
 
 bareos_webui_directors: []
+
+# Enable TLS
+bareos_webui_tls_enable: yes
+
+# The path of the CA certificate file.
+bareos_webui_tls_ca_cert: ""
+
+# The path of the cert+key combo of the director
+bareos_webui_tls_cert_chain: ""
