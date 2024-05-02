@@ -43,6 +43,8 @@ jobs:
             tag: "38"
           - image: "fedora"
             tag: "39"
+          # TODO no packages for fedora 40 yet: https://download.bareos.org/current/
+          # pipeline will fail for now. replace 38 as soon as 40 is ready and working.
           - image: "fedora"
             tag: "latest"
           - image: "ubuntu"
