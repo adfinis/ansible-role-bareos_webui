@@ -30,10 +30,28 @@ jobs:
             tag: "latest"
           - image: "debian"
             tag: "bullseye"
+<<<<<<< HEAD
+=======
+          - image: "debian"
+            tag: "buster"
+          - image: "enterpriselinux"
+            tag: "8"
+          - image: "enterpriselinux"
+            tag: "latest"
+>>>>>>> bf7ea27 (chore(ci): update fedora versions (#2))
           - image: "fedora"
             tag: "38"
           - image: "fedora"
             tag: "39"
+<<<<<<< HEAD
+=======
+          # TODO no packages for fedora 40 yet: https://download.bareos.org/current/
+          # pipeline will fail for now. replace 38 as soon as 40 is ready and working.
+          - image: "fedora"
+            tag: "latest"
+          - image: "ubuntu"
+            tag: "latest"
+>>>>>>> bf7ea27 (chore(ci): update fedora versions (#2))
           - image: "ubuntu"
             tag: "focal"
           - image: "ubuntu"
