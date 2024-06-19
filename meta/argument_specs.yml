@@ -15,3 +15,12 @@ argument_specs:
       bareos_webui_configuration:
         type: "list"
         description: "Configuration for the webui."
+      bareos_webui_tls_enable:
+        type: "bool"
+        description: "Option to enable TLS encryption"
+      bareos_webui_tls_ca_cert:
+        type: "str"
+        description: "CA certificate for the webui"
+      bareos_webui_tls_cert_chain:
+        type: "str"
+        description: "Certificate chain (key + cert) for the webui"
