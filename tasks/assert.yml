@@ -61,12 +61,14 @@
     that:
       - bareos_webui_tls_enable is defined
       - bareos_webui_tls_enable is boolean
-    
+    quiet: yes
+
 - name: assert | Test bareos_webui_tls certificate configurations are set correctly
   ansible.builtin.assert:
     that:
       - item is defined
       - item is string
+    quiet: yes
   loop:
     - "{{ bareos_webui_tls_ca_cert_src }}"
     - "{{ bareos_webui_tls_ca_cert_dest }}"
