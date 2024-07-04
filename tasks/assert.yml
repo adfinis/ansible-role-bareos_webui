@@ -55,19 +55,21 @@
   loop: "{{ bareos_webui_configuration }}"
   loop_control:
     label: "{{ item.section }}:{{ item.option }}"
+
 - name: assert | Test bareos_webui_tls_enable
   ansible.builtin.assert:
     that:
     - bareos_webui_tls_enable is defined
     - bareos_webui_tls_enable is boolean
-- name: assert | Test bareos_webui_tls configuration is set correctly
+    
+- name: assert | Test bareos_webui_tls certificate configurations are set correctly
   ansible.builtin.assert:
     that:
-    - item.src is defined
-    - item.src is string
-    - item.dest is defined
-    - item.dest is string
+    - item is defined
+    - item is string
   loop:
-    - "{{ bareos_webui_tls_ca_cert }}"
-    - "{{ bareos_webui_tls_cert_chain }}"
+    - "{{ bareos_webui_tls_ca_cert_src }}"
+    - "{{ bareos_webui_tls_ca_cert_dest }}"
+    - "{{ bareos_webui_tls_cert_chain_src }}"
+    - "{{ bareos_webui_tls_cert_chain_dest }}"
   when: bareos_webui_tls_enable
