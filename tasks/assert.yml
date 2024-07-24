@@ -75,3 +75,30 @@
     - "{{ bareos_webui_tls_cert_chain_src }}"
     - "{{ bareos_webui_tls_cert_chain_dest }}"
   when: bareos_webui_tls_enable
+
+- name: assert | Test bareos_webui_ssl_enable
+  ansible.builtin.assert:
+    that:
+      - bareos_webui_ssl_enable is defined
+      - bareos_webui_ssl_enable is boolean
+    quiet: yes
+
+- name: assert | Test bareos_webui_ssl certificate configurations are set correctly
+  ansible.builtin.assert:
+    that:
+      - item is defined
+      - item is string
+    quiet: yes
+  loop:
+    - "{{ bareos_webui_letsencrypt_account_key }}"
+    - "{{ bareos_webui_domain }}"
+    - "{{ bareos_webui_acme_directory }}"
+    - "{{ bareos_webui_acme_version }}"
+    - "{{ bareos_webui_acme_email }}"
+    - "{{ bareos_webui_acme_challenge_type }}"
+    - "{{ bareos_webui_letsencrypt_csrs_dir }}"
+    - "{{ bareos_webui_letsencrypt_certs_dir }}"
+
+
+
+

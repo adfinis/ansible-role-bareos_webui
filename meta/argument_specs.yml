@@ -24,3 +24,30 @@ argument_specs:
       bareos_webui_tls_cert_chain:
         type: "str"
         description: "Certificate chain (key + cert) for the webui"
+      bareos_webui_ssl_enable:
+        type: "bool"
+        description: "Option to enable Letsencrypt SSL"
+      bareos_webui_letsencrypt_account_key:
+        type: "str"
+        description: "Letsencrypt account key file location"
+      bareos_webui_domain:
+        type: "str"
+        description: "Host & domain of the webui"
+      bareos_webui_acme_directory:
+        type: "str"
+        description: "Directory of the ACME challenge files"
+      bareos_webui_acme_version:
+        type: "int"
+        description: "Version of ACME Challenge"
+      bareos_webui_acme_email:
+        type: "str"
+        description: "Email for expiry notification"
+      bareos_webui_acme_challenge_type:
+        type: "str"
+        description: "Challenge type for certificate genertation"
+      bareos_webui_letsencrypt_csrs_dir:
+        type: "str"
+        description: "Location of Letsencrypt CSRs"
+      bareos_webui_letsencrypt_certs_dir:
+        type: "str"
+        description: "Location of Letsencrypt certificates"

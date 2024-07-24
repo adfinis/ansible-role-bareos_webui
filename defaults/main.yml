@@ -24,3 +24,14 @@ bareos_webui_tls_ca_cert_dest: "/etc/bareos/bareosCA.pem"
 # The path of the cert+key combo of the director
 bareos_webui_tls_cert_chain_src: ""
 bareos_webui_tls_cert_chain_dest: "/etc/bareos/webui-chain.pem"
+
+# Enable SSL
+bareos_webui_ssl_enable: false
+
+# LetsEncrypt settings
+bareos_webui_letsencrypt_account_key: "/etc/letsencrypt/account/account.key"
+bareos_webui_acme_directory: "https://acme-v02.api.letsencrypt.org/directory"
+bareos_webui_acme_version: 2
+bareos_webui_acme_challenge_type: "http-01"
+bareos_webui_letsencrypt_csrs_dir: "/etc/letsencrypt/csrs"
+bareos_webui_letsencrypt_certs_dir: "/etc/letsencrypt/certs"
