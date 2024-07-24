@@ -98,7 +98,3 @@
     - "{{ bareos_webui_acme_challenge_type }}"
     - "{{ bareos_webui_letsencrypt_csrs_dir }}"
     - "{{ bareos_webui_letsencrypt_certs_dir }}"
-
-
-
-
