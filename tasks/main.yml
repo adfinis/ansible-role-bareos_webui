@@ -132,7 +132,7 @@
     group: root
     mode: u=rw,g=r,o=r
   with_items:
-  - "{{ bareos_webui_domain }}"
+    - "{{ bareos_webui_domain }}"
   when:
     - bareos_webui_ssl_enable
 
