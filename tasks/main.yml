@@ -85,68 +85,11 @@
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
 
-# LetsEncrypt
-- name: Generate Let's Encrypt account key if not present
-  shell: "if [ ! -f {{ bareos_webui_letsencrypt_account_key }} ]; then openssl genrsa 4096 | sudo tee {{ bareos_webui_letsencrypt_account_key }}; fi"
+- name: Import Lets Encrypt tasks for HTTPS
+  ansible.builtin.import_tasks:
+    file: letsencrypt.yml
   when:
     - bareos_webui_ssl_enable
-
-- name: Generate Let's Encrypt CSR
-  shell: "openssl req -new -sha256 -key /etc/letsencrypt/keys/{{ bareos_webui_domain }}.key -subj \"/CN={{ bareos_webui_domain }}\" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf \"\n[SAN]\nsubjectAltName=DNS:{{ bareos_webui_domain }}\")) | sudo tee /etc/letsencrypt/csrs/{{ bareos_webui_domain }}.csr"
-  args:
-    executable: /bin/bash
-  when:
-    - bareos_webui_ssl_enable
-
-- name: Begin Let's Encrypt challenges
-  acme_certificate:
-    acme_directory: "{{ bareos_webui_acme_directory }}"
-    acme_version: "{{ bareos_webui_acme_version }}"
-    account_key_src: "{{ bareos_webui_letsencrypt_account_key }}"
-    account_email: "{{ bareos_webui_acme_email }}"
-    terms_agreed: 1
-    challenge: "{{ bareos_webui_acme_challenge_type }}"
-    csr: "{{ bareos_webui_letsencrypt_csrs_dir }}/{{ bareos_webui_domain }}.csr"
-    dest: "{{ bareos_webui_letsencrypt_certs_dir }}/{{ bareos_webui_domain }}.crt"
-    fullchain_dest: "{{ bareos_webui_letsencrypt_certs_dir }}/fullchain_{{ bareos_webui_domain }}.crt"
-    remaining_days: 91
-  register: acme_challenge_webui
-  when:
-    - bareos_webui_ssl_enable
-
-- name: Create .well-known/acme-challenge directory
-  file:
-    path: /var/www/html/.well-known/acme-challenge
-    state: directory
-    owner: root
-    group: root
-    mode: u=rwx,g=rx,o=rx
-  when:
-    - bareos_webui_ssl_enable
-
-- name: Implement http-01 challenge files
-  copy:
-    content: "{{ acme_challenge_webui['challenge_data'][item]['http-01']['resource_value'] }}"
-    dest: "/var/www/html/{{ acme_challenge_webui['challenge_data'][item]['http-01']['resource'] }}"
-    owner: root
-    group: root
-    mode: u=rw,g=r,o=r
-  with_items:
-    - "{{ bareos_webui_domain }}"
-  when:
-    - bareos_webui_ssl_enable
-
-- name: Complete Let's Encrypt challenges
-  acme_certificate:
-    acme_directory: "{{ bareos_webui_acme_directory }}"
-    acme_version: "{{ bareos_webui_acme_version }}"
-    account_key_src: "{{ bareos_webui_letsencrypt_account_key }}"
-    account_email: "{{ bareos_webui_acme_version }}"
-    challenge: "{{ bareos_webui_acme_challenge_type }}"
-    csr: "{{ bareos_webui_letsencrypt_csrs_dir }}/{{ bareos_webui_domain }}.csr"
-    dest: "{{ bareos_webui_letsencrypt_certs_dir }}/{{ bareos_webui_domain }}.crt"
-    chain_dest: "{{ bareos_webui_letsencrypt_certs_dir }}/chain_{{ bareos_webui_domain }}.crt"
-    fullchain_dest: "{{ bareos_webui_letsencrypt_certs_dir }}/fullchain_{{ bareos_webui_domain }}"
-    data: "{{ acme_challenge_webui }}"
-  when:
-    - bareos_webui_ssl_enable
+  tags:
+    - role::bareos_webui
+    - role::bareos_webui::letsencrypt
