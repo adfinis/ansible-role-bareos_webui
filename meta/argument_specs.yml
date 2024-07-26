@@ -1,53 +1,51 @@
 ---
 
-# # bareos_dir_messages: Daemon
-
 argument_specs:
   main:
-    short_description: "Install and configure BareOS WebUI on your system."
     description: >
       Install and configure BareOS WebUI on your system.
     author: Adfinis
     options:
       bareos_webui_directors:
         type: "list"
-        description: "A list of directors to connect to.."
+        elements: "dict"
+        description: "A list of directors to connect to"
+        required: true
       bareos_webui_configuration:
         type: "list"
-        description: "Configuration for the webui."
+        elements: "dict"
+        description: "Configuration for the webui"
+        required: true
       bareos_webui_tls_enable:
         type: "bool"
         description: "Option to enable TLS encryption"
-      bareos_webui_tls_ca_cert:
+        default: false
+      bareos_webui_tls_ca_cert_src:
         type: "str"
-        description: "CA certificate for the webui"
-      bareos_webui_tls_cert_chain:
+        description: "CA certificate for the webui (src)"
+      bareos_webui_tls_ca_cert_dest:
         type: "str"
-        description: "Certificate chain (key + cert) for the webui"
-      bareos_webui_ssl_enable:
+        description: "CA certificate for the webui (dest)"
+      bareos_webui_tls_cert_chain_src:
+        type: "str"
+        description: "Certificate chain (key + cert) for the webui (src)"
+      bareos_webui_tls_cert_chain_dest:
+        type: "str"
+        description: "Certificate chain (key + cert) for the webui (dest)"
+      bareos_webui_letsencrypt_enable:
         type: "bool"
-        description: "Option to enable Letsencrypt SSL"
-      bareos_webui_letsencrypt_account_key:
-        type: "str"
-        description: "Letsencrypt account key file location"
-      bareos_webui_domain:
+        description: "Option to enable Let's Encrypt SSL"
+        default: false
+  letsencrypt:
+    description: >
+      Addtionally setup Let's Encrypt with Certbot in Apache for HTTPS support
+    author: Adfinis
+    options:
+      bareos_webui_letsencrypt_domain:
         type: "str"
         description: "Host & domain of the webui"
-      bareos_webui_acme_directory:
+        default: ""
+      bareos_webui_letsencrypt_account_mail:
         type: "str"
-        description: "Directory of the ACME challenge files"
-      bareos_webui_acme_version:
-        type: "int"
-        description: "Version of ACME Challenge"
-      bareos_webui_acme_email:
-        type: "str"
-        description: "Email for expiry notification"
-      bareos_webui_acme_challenge_type:
-        type: "str"
-        description: "Challenge type for certificate genertation"
-      bareos_webui_letsencrypt_csrs_dir:
-        type: "str"
-        description: "Location of Letsencrypt CSRs"
-      bareos_webui_letsencrypt_certs_dir:
-        type: "str"
-        description: "Location of Letsencrypt certificates"
+        description: "Mail account for Let's Encrypt notifications"
+        default: ""
