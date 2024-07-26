@@ -3,3 +3,7 @@
 
 bareos_webui_requirements: []
 bareos_webui_httpd_service: httpd
+
+bareos_webui_letsencrypt_packages:
+  - certbot
+  - python3-certbot-apache
