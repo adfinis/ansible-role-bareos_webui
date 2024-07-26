@@ -30,4 +30,3 @@ bareos_webui_tls_cert_chain_dest: "/etc/bareos/webui-chain.pem"
 bareos_webui_letsencrypt_enable: false
 bareos_webui_letsencrypt_account_mail: ""
 bareos_webui_letsencrypt_domain: ""
-
