@@ -76,14 +76,14 @@
     - "{{ bareos_webui_tls_cert_chain_dest }}"
   when: bareos_webui_tls_enable
 
-- name: assert | Test bareos_webui_ssl_enable
+- name: assert | Test bareos_webui_letsencrypt_enable
   ansible.builtin.assert:
     that:
-      - bareos_webui_ssl_enable is defined
-      - bareos_webui_ssl_enable is boolean
+      - bareos_webui_letsencrypt_enable is defined
+      - bareos_webui_letsencrypt_enable is boolean
     quiet: yes
 
-- name: assert | Test bareos_webui_ssl certificate configurations are set correctly
+- name: assert | Test bareos_webui_letsencrypt certificate configurations are set correctly
   ansible.builtin.assert:
     that:
       - item is defined
