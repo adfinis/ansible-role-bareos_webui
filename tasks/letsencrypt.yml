@@ -14,6 +14,6 @@
       - "-d {{ bareos_webui_letsencrypt_domain }}"
       - "-m {{ bareos_webui_letsencrypt_account_mail }}"
   register: _le_output
-  changed_when: _le_outpu.rc != 0
+  changed_when: _le_output.rc != 0
   notify:
     - Restart httpd
