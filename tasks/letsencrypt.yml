@@ -9,10 +9,14 @@
 - name: letsencrypt | Generate cerbot certificate for Apache
   ansible.builtin.command:
     argv:
-      - certbot -n
+      - certbot
+      - -n
       - --apache
-      - "-d {{ bareos_webui_letsencrypt_domain }}"
-      - "-m {{ bareos_webui_letsencrypt_account_mail }}"
+      - --agree-tos
+      - -d
+      - "{{ bareos_webui_letsencrypt_domain }}"
+      - -m
+      - "{{ bareos_webui_letsencrypt_account_mail }}"
   register: _le_output
   changed_when: _le_output.rc != 0
   notify:
