@@ -35,7 +35,9 @@ jobs:
           - image: "fedora"
             tag: "39"
           - image: "ubuntu"
-            tag: "latest"
+            tag: "focal"
+          - image: "ubuntu"
+            tag: "jammy"
     steps:
       - name: checkout
         uses: actions/checkout@v4
