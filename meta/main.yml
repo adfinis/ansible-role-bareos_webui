@@ -12,15 +12,10 @@ galaxy_info:
       versions:
         - bookworm
         - bullseye
-        - buster
-    - name: EL
-      versions:
-        - "8"
-        - "9"
     - name: Fedora
       versions:
-        - "37"
         - "38"
+        - "39"
     - name: Ubuntu
       versions:
         - jammy
