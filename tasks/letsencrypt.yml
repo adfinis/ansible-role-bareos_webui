@@ -17,7 +17,6 @@
       - "{{ bareos_webui_letsencrypt_domain }}"
       - -m
       - "{{ bareos_webui_letsencrypt_account_mail }}"
-      - "{{ '--test-cert' if bareos_webui_letsencrypt_staging|default(false) else omit }}"
   register: _le_output
   changed_when: _le_output.rc != 0
   notify:
