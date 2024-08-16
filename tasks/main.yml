@@ -71,7 +71,7 @@
     owner: bareos
     group: bareos
     mode: "0640"
-    backup: "{{ bareos_dir_backup_configurations }}"
+    backup: true
   loop:
     - src: bareos_webui_tls_ca_cert_src
       dest: bareos_webui_tls_ca_cert_dest
