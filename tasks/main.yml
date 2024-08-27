@@ -10,7 +10,7 @@
 - name: Import assert.yml
   ansible.builtin.import_tasks:
     file: assert.yml
-  run_once: yes
+  run_once: true
   delegate_to: localhost
 
 - name: Install requirements
@@ -67,16 +67,16 @@
 - name: Place TLS certificates
   ansible.builtin.copy:
     src: "{{ item.src }}"
-    dest: "{{ item.dst }}"
+    dest: "{{ item.dest }}"
     owner: bareos
     group: bareos
     mode: "0640"
-    backup: "{{ bareos_dir_backup_configurations }}"
+    backup: true
   loop:
-    - src: bareos_webui_tls_ca_cert_src
-      dest: bareos_webui_tls_ca_cert_dest
-    - src: bareos_webui_tls_cert_chain_src
-      dest: bareos_webui_tls_cert_chain_dest
+    - src: "{{ bareos_webui_tls_ca_cert_src }}"
+      dest: "{{ bareos_webui_tls_ca_cert_dest }}"
+    - src: "{{ bareos_webui_tls_cert_chain_src }}"
+      dest: "{{ bareos_webui_tls_cert_chain_dest }}"
   when:
     - bareos_webui_tls_enable
     - bareos_webui_tls_ca_cert_src != ""
@@ -85,8 +85,8 @@
 - name: Set SELinux boolean httpd_can_network_connect
   ansible.posix.seboolean:
     name: httpd_can_network_connect
-    state: yes
-    persistent: yes
+    state: true
+    persistent: true
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
