@@ -1,0 +1,25 @@
+---
+# Setting up Let's Encrypt with certbot
+
+- name: letsencrypt | Install certbot for automated cert renewal
+  ansible.builtin.package:
+    name: "{{ bareos_webui_letsencrypt_packages }}"
+    state: present
+
+- name: letsencrypt | Generate cerbot certificate for Apache
+  ansible.builtin.command:
+    argv:
+      - certbot
+      - -n
+      - --apache
+      - --agree-tos
+      - -d
+      - "{{ bareos_webui_letsencrypt_domain }}"
+      - -m
+      - "{{ bareos_webui_letsencrypt_account_mail }}"
+  register: _le_output
+  changed_when: _le_output.rc != 0
+  notify:
+    - Restart httpd
+  tags:
+    - molecule-notest  # cert creation does not work in molecule

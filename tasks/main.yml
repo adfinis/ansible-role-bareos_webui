@@ -1,6 +1,12 @@
 ---
 # tasks file for bareos_webui
 
+- name: Include OS-specific vars
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.os_family }}.yml"
+
 - name: Import assert.yml
   ansible.builtin.import_tasks:
     file: assert.yml
@@ -84,3 +90,16 @@
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
+
+- name: Import Lets Encrypt tasks for HTTPS
+  ansible.builtin.import_tasks:
+    file: letsencrypt.yml
+  when:
+    - bareos_webui_letsencrypt_enable
+    - bareos_webui_letsencrypt_account_mail is defined
+    - bareos_webui_letsencrypt_account_mail != ""
+    - bareos_webui_letsencrypt_domain is defined
+    - bareos_webui_letsencrypt_domain != ""
+  tags:
+    - role::bareos_webui
+    - role::bareos_webui::letsencrypt

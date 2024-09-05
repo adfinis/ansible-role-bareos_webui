@@ -1,14 +1,18 @@
 ---
+
 - name: Converge
   hosts: all
-  become: yes
-  gather_facts: yes
-
+  become: true
+  gather_facts: true
   roles:
     - role: ansible-role-bareos_webui
-      bareos_webui_directors:
-        - name: localhost-dir
-          enabled: yes
-          diraddress: localhost
-        - name: disabled-dir
-          enabled: no
+      vars:
+        bareos_webui_directors:
+          - name: localhost-dir
+            enabled: true
+            diraddress: localhost
+          - name: disabled-dir
+            enabled: false
+        bareos_webui_letsencrypt_enable: true
+        bareos_webui_letsencrypt_domain: bareos-webui.example.com
+        bareos_webui_letsencrypt_account_mail: support@example.com
