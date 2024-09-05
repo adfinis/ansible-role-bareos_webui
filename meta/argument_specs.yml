@@ -49,7 +49,3 @@ argument_specs:
         type: "str"
         description: "Mail account for Let's Encrypt notifications"
         default: ""
-      bareos_webui_letsencrypt_account_key:
-        type: "str"
-        description: "Account key for Let's Encrypt"
-        default: ""
