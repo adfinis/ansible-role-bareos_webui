@@ -98,6 +98,8 @@
     - bareos_webui_letsencrypt_enable
     - bareos_webui_letsencrypt_account_mail is defined
     - bareos_webui_letsencrypt_account_mail != ""
+    - bareos_webui_letsencrypt_domain is defined
+    - bareos_webui_letsencrypt_domain != ""
   tags:
     - role::bareos_webui
     - role::bareos_webui::letsencrypt
