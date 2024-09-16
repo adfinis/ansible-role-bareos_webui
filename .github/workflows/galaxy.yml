@@ -8,11 +8,8 @@ name: Release to Ansible Galaxy
 on:
   release:
     types: [created, edited, published, released]
+
 jobs:
   release:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: galaxy
-        uses: robertdebock/galaxy-action@1.2.1
-        with:
-          galaxy_api_key: ${{ secrets.galaxy_api_key }}
+    uses: adfinis/github-workflows-bareos/blob/main/.github/workflows/ansible-role.yaml@main
+    secrets: inherit
