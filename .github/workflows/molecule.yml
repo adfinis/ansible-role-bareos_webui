@@ -31,13 +31,13 @@ jobs:
           - image: "debian"
             tag: "bullseye"
           - image: "fedora"
-            tag: "38"
-          - image: "fedora"
             tag: "39"
-          - image: "ubuntu"
-            tag: "focal"
+          - image: "fedora"
+            tag: "latest"
           - image: "ubuntu"
             tag: "jammy"
+          - image: "ubuntu"
+            tag: "latest"
     steps:
       - name: checkout
         uses: actions/checkout@v4
