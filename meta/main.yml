@@ -14,12 +14,12 @@ galaxy_info:
         - bullseye
     - name: Fedora
       versions:
-        - "38"
         - "39"
+        - "40"
     - name: Ubuntu
       versions:
         - jammy
-        - focal
+        - noble
 
   galaxy_tags:
     - backup
