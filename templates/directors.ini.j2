@@ -1,0 +1,56 @@
+{{ ansible_managed | comment }}
+;
+; Bareos WebUI Configuration File
+;
+; File: /etc/bareos-webui/directors.ini
+;
+
+{% for director in bareos_webui_directors %}
+;------------------------------------------------------------------------------
+; Section {{ director.name }}
+;------------------------------------------------------------------------------
+[{{ director.name }}]
+
+enabled = "{{ director.enabled | ternary("yes", "no") }}"
+
+diraddress = "{{ director.diraddress | default("localhost") }}"
+
+; Default value is 9101
+dirport = {{ director.dirport | default(9101) }}
+
+; Set catalog to explicit value if you have multiple catalogs
+{% if director.catalog is defined and director.catalog != "MyCatalog" %}
+catalog = "{{ director.catalog | default("MyCatalog") }}"
+{% else %}
+;catalog = "MyCatalog"
+{% endif %}
+
+{% if director.tls | default(false) %}
+tls_verify_peer = {{ director.tls_verify_peer | default(false) | lower }}
+
+server_can_do_tls = {{ director.server_can_do_tls | default(false) | lower }}
+
+server_requires_tls = {{ director.server_requires_tls | default(false) | lower }}
+
+client_can_do_tls = {{ director.client_can_do_tls | default(false) | lower }}
+
+client_requires_tls = {{ director.client_requires_tls | default(false) | lower }}
+
+; Path to the certificate authority file
+ca_file = "{{ director.ca_file }}"
+
+; Path to the cert file which needs to contain the client certificate and the key in PEM encoding
+cert_file = "{{ director.cert_file }}"
+
+{% if director.cert_file_passphrase is defined %}
+; Passphrase needed to unlock the above cert file if set
+cert_file_passphrase = "{{ director.cert_file_passphrase }}"
+{% endif %}
+
+{% if director.allowed_cns is defined %}
+; Allowed common names
+allowed_cns = "{{ director.allowed_cns }}"
+{% endif %}
+
+{% endif %}
+{% endfor %}
