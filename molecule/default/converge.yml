@@ -13,6 +13,27 @@
             diraddress: localhost
           - name: disabled-dir
             enabled: false
+          - name: disabled-tls-dir
+            enabled: false
+            diraddress: disabled-tls-dir.example.com
+            dirport: 9117
+            catalog: TestCatalog
+            tls: "{{ bareos_webui_tls_enable }}"  # referencing the required tls_enable var
+            tls_verify_peer: true
+            server_can_do_tls: true
+            server_requires_tls: true
+            client_can_do_tls: false
+            client_requires_tls: false
+            ca_file: "{{ bareos_webui_tls_ca_cert_dest }}"
+            cert_file: "{{ bareos_webui_tls_cert_chain_dest }}"
+            allowed_cns: bareos.example.com
+
+        # TLS connection to director
+        bareos_webui_tls_enable: true
+        bareos_webui_tls_ca_cert_src: tls_files/molecule-ca.pem
+        bareos_webui_tls_cert_chain_src: tls_files/molecule-test-chain.pem
+
+        # letsencrypt
         bareos_webui_letsencrypt_enable: true
         bareos_webui_letsencrypt_domain: bareos-webui.example.com
         bareos_webui_letsencrypt_account_mail: support@example.com
