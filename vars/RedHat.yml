@@ -1,3 +1,4 @@
 ---
 
 bareos_webui_httpd_service: httpd
+bareos_webui_httpd_user: apache

@@ -4,3 +4,4 @@ bareos_webui_requirements:
   - libapache2-mod-php
 
 bareos_webui_httpd_service: apache2
+bareos_webui_httpd_user: www-data
