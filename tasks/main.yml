@@ -23,33 +23,14 @@
   notify:
     - Restart httpd
 
-- name: Set "enabled" in directors.ini
-  community.general.ini_file:
-    path: /etc/bareos-webui/directors.ini
-    section: "{{ item.name }}"
-    option: enabled
-    value: "{{ item.enabled | ternary('Yes', 'No') }}"
+- name: Deploy directors.ini config
+  ansible.builtin.template:
+    src: templates/directors.ini.j2
+    dest: /etc/bareos-webui/directors.ini
+    backup: true
     owner: root
     group: root
     mode: "0644"
-  loop: "{{ bareos_webui_directors }}"
-  loop_control:
-    label: "{{ item.name }}"
-
-- name: Set "diraddress" in directors.ini
-  community.general.ini_file:
-    path: /etc/bareos-webui/directors.ini
-    section: "{{ item.name }}"
-    option: diraddress
-    value: "{{ item.diraddress }}"
-    owner: root
-    group: root
-    mode: "0644"
-  loop: "{{ bareos_webui_directors }}"
-  loop_control:
-    label: "{{ item.name }}"
-  when:
-    - item.enabled
 
 - name: Set settings for configuration.ini
   community.general.ini_file:
@@ -68,8 +49,8 @@
   ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    owner: bareos
-    group: bareos
+    owner: "{{ bareos_webui_httpd_user | default('http') }}"
+    group: root
     mode: "0640"
     backup: true
   loop:
@@ -90,6 +71,12 @@
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
+
+- name: Enable and start HTTPD service
+  ansible.builtin.service:
+    name: "{{ bareos_webui_httpd_service }}"
+    enabled: true
+    state: started
 
 - name: Import Lets Encrypt tasks for HTTPS
   ansible.builtin.import_tasks:
