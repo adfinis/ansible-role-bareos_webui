@@ -10,7 +10,63 @@ argument_specs:
         type: "list"
         elements: "dict"
         description: "A list of directors to connect to"
-        required: true
+        default: []
+        options:
+          name:
+            type: "str"
+            required: true
+            description: "Name of the Bareos Director"
+          enabled:
+            type: "bool"
+            required: true
+          diraddress:
+            type: "str"
+            default: "localhost"
+          dirport:
+            type: int
+            default: 9101
+          catalog:
+            type: "str"
+            default: "MyCatalog"
+            description: "Name of the Bareos Catalog on the Director"
+          tls:
+            type: "bool"
+            default: false
+            description: >
+              Enable TLS for connection to Bareos Director.
+              Use the same value as in `bareos_webui_tls_enable`.
+          tls_verify_peer:
+            type: "bool"
+            default: false
+          server_can_do_tls:
+            type: "bool"
+            default: false
+          server_requires_tls:
+            type: "bool"
+            default: false
+          client_can_do_tls:
+            type: "bool"
+            default: false
+          client_requires_tls:
+            type: "bool"
+            default: false
+          ca_file:
+            type: "str"
+            description: >
+              Path to the certificate authority file on the Bareos WebUI machine.
+              Use the same value as in `bareos_webui_tls_ca_cert_dest`.
+          cert_file:
+            type: "str"
+            description: >
+              Path to the cert file which needs to contain the client certificate and the key in PEM encoding.
+              Use the same value as in `bareos_webui_tls_cert_chain`.
+          cert_file_passphrase:
+            type: "str"
+            description: "Passphrase needed to unlock the above cert file if set"
+          allowed_cns:
+            type: "str"
+            description: "Allowed common names"
+
       bareos_webui_configuration:
         type: "list"
         elements: "dict"
