@@ -51,6 +51,10 @@ cert_file_passphrase = "{{ director.cert_file_passphrase }}"
 ; Allowed common names
 allowed_cns = "{{ director.allowed_cns }}"
 {% endif %}
+{% if director.pam_console_name is defined and director.pam_console_password is defined %}
+pam_console_name     = "{{ director.pam_console_name }}"
+pam_console_password = "{{ director.pam_console_password }}"
+{% endif %}
 
 {% endif %}
 {% endfor %}

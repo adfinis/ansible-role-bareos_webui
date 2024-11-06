@@ -27,6 +27,8 @@
             ca_file: "{{ bareos_webui_tls_ca_cert_dest }}"
             cert_file: "{{ bareos_webui_tls_cert_chain_dest }}"
             allowed_cns: bareos.example.com
+            pam_console_name: webui-pam
+            pam_console_password: MySecretPAMPassword
 
         # TLS connection to director
         bareos_webui_tls_enable: true
