@@ -66,6 +66,16 @@ argument_specs:
           allowed_cns:
             type: "str"
             description: "Allowed common names"
+          pam_console_name:
+            type: "str"
+            description: >
+              Name of Bareos Console to use for PAM authentication.
+              See: https://github.com/bareos/bareos/tree/master/contrib/misc/bareos_pam_integration#bareos-pam-integration
+          pam_console_password:
+            type: "str"
+            description: >
+              Password of Bareos Console to use for PAM authentication.
+              See: https://github.com/bareos/bareos/tree/master/contrib/misc/bareos_pam_integration#bareos-pam-integration
 
       bareos_webui_configuration:
         type: "list"
