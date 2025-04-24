@@ -12,4 +12,4 @@ on:
 
 jobs:
   test:
-    uses: adfinis/github-workflows-bareos/.github/workflows/molecule.yaml@v0.5.1
+    uses: adfinis/github-workflows-bareos/.github/workflows/molecule.yaml@v0.5.2
